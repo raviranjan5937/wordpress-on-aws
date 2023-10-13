@@ -1,0 +1,36 @@
+sudo apt update
+sudo apt upgrade -y
+sudo apt install apache2 -y
+sudo apt install php libapache2-mod-php php-mysql -y
+sudo apt install mysql-server -y
+sudo mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'Password@123';
+CREATE USER 'wp_user'@localhost IDENTIFIED BY 'Password@123';
+CREATE DATABASE wp;
+GRANT ALL PRIVILEGES ON wp.* TO 'wp_user'@localhost;
+\q
+Goto https://wordpress.org/download/releases/
+Copy the Latest release tar.gz link.
+cd /tmp
+wget https://wordpress.org/wordpress-6.3.2.tar.gz
+tar -xvf wordpress-6.3.2.tar.gz
+sudo mv wordpress /var/www/html/
+Access http://3.7.52.141/wordpress
+Enter the database connection details (Database Name, Username, Password, Database Host, Table Prefix (can be default prefix))
+# Create the wp-config.php file manually and paste the Configuration rules shown in the browser.
+vi /var/www/html/wordpress/wp-config.php
+```
+<Configuration rules displayed in the browser>
+```
+Goto browser and click on "Run on Installation".
+Enter Site Title, Username, Password, Email and click on Install Wordpress.
+Goto http://<IP_addr>/wordpress/wp-login.php
+Sample website can be accessed at http://<IP_addr>/wordpress/
+# vi /etc/apache2/sites-available/000-default.conf    
+Change DocumentRoot from /var/www/html to /var/www/html/wordpress
+sudo systemctl restart apache2
+Sample website now can be accessed at http://<IP_addr>
+Link domain name.
+
+
+
